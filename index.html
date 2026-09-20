@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Особисте портфоліо Павла, учня 9 класу: самоаналіз у запитаннях і відповідях.">
+  <meta name="theme-color" content="#121212">
+  <title>Портфоліо Паші</title>
+
+  <!-- Позначаємо, що JavaScript доступний (без нього всі відповіді просто залишаються відкритими) -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Змінні (кольори та шрифт) ---------- */
+    :root {
+      --bg: #121212;
+      --card: #222222;
+      --text: #F1F1F1;
+      --white: #FFFFFF;
+      --orange: #FF6B00;
+      --red: #E50914;
+      --gradient: linear-gradient(90deg, #FF6B00 0%, #E50914 100%);
+      --gradient-vertical: linear-gradient(180deg, #FF6B00 0%, #E50914 100%);
+      --line: rgba(255, 255, 255, 0.08);
+      --font: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ---------- Базові стилі ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      background: var(--bg);
+      color-scheme: dark;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 1rem;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Градієнтний текст (запасний колір — оранжевий) */
+    .gradient-text {
+      color: var(--orange);
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+    }
+
+    /* ---------- Шапка (Hero) ---------- */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(3.5rem, 11vw, 7.5rem) 0 clamp(2.5rem, 6vw, 4rem);
+    }
+
+    /* Єдина декоративна «пляма жару» у кутку */
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      right: -25%;
+      width: min(85vw, 760px);
+      aspect-ratio: 1;
+      background: radial-gradient(circle at 40% 40%,
+        rgba(229, 9, 20, 0.34) 0%,
+        rgba(255, 107, 0, 0.16) 38%,
+        rgba(18, 18, 18, 0) 68%);
+      pointer-events: none;
+    }
+
+    .hero .container { position: relative; }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.75rem, 10vw, 5.75rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+
+    .hero .subtitle {
+      margin: 1.1rem 0 0;
+      font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: 0.01em;
+    }
+
+    .about {
+      margin-top: clamp(2.25rem, 6vw, 3.5rem);
+      padding-left: clamp(1.1rem, 3vw, 1.75rem);
+      border-left: 4px solid transparent;
+      border-image: var(--gradient-vertical) 1;
+      max-width: 700px;
+    }
+
+    .about h2 {
+      margin: 0 0 0.6rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .about p {
+      margin: 0;
+      font-size: clamp(1rem, 2.3vw, 1.15rem);
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    /* Єдиний анімований момент: поява шапки при завантаженні */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .hero .rise {
+      animation: rise 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      animation-delay: var(--delay, 0s);
+    }
+
+    /* ---------- Основний блок (FAQ) ---------- */
+    .faq {
+      padding: clamp(2rem, 6vw, 3.5rem) 0 clamp(3rem, 8vw, 5rem);
+    }
+
+    .faq-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-head h2 {
+      margin: 0;
+      font-size: clamp(1.6rem, 4.5vw, 2.25rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .faq-head p {
+      margin: 0.5rem 0 0;
+      color: rgba(241, 241, 241, 0.75);
+      max-width: 46ch;
+    }
+
+    .btn-ghost {
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+      transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), background-color 0.25s var(--ease);
+    }
+    .btn-ghost:hover {
+      border-color: var(--orange);
+      box-shadow: 0 0 18px rgba(255, 107, 0, 0.25);
+    }
+
+    /* Швидкі посилання на розділи */
+    .topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0 0 0.5rem;
+      padding: 0;
+      list-style: none;
+    }
+    .topics a {
+      display: inline-block;
+      padding: 0.4rem 0.95rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+    }
+    .topics a:hover {
+      color: var(--white);
+      border-color: rgba(255, 107, 0, 0.7);
+    }
+
+    .topic {
+      margin-top: clamp(2.25rem, 6vw, 3.25rem);
+      scroll-margin-top: 1.5rem;
+    }
+
+    .topic h3 {
+      margin: 0 0 1rem;
+      font-size: clamp(1.3rem, 3.6vw, 1.75rem);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    /* ---------- Аккордеон ---------- */
+    .faq-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+
+    .faq-item:hover {
+      border-color: rgba(255, 107, 0, 0.6);
+      box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.2), 0 10px 32px -10px rgba(229, 9, 20, 0.45);
+    }
+
+    /* Кольорова смужка зліва з'являється, коли відповідь відкрито */
+    .faq-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--gradient-vertical);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.45s var(--ease);
+    }
+    .faq-item.is-open::before { transform: scaleY(1); }
+    .faq-item.is-open { border-color: rgba(229, 9, 20, 0.5); }
+
+    .faq-heading {
+      margin: 0;
+      font-size: inherit;
+      font-weight: inherit;
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      width: 100%;
+      margin: 0;
+      padding: 1.1rem 1.25rem;
+      font: inherit;
+      font-size: clamp(0.98rem, 2.4vw, 1.08rem);
+      font-weight: 600;
+      line-height: 1.45;
+      text-align: left;
+      color: var(--white);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+    .faq-question:focus-visible { outline-offset: -3px; border-radius: 14px; }
+
+    .faq-num {
+      flex: none;
+      min-width: 2.2rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--orange);
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .faq-text { flex: 1; }
+
+    /* Іконка «+», що перетворюється на «×» */
+    .faq-icon {
+      position: relative;
+      flex: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      transition: transform 0.4s var(--ease), border-color 0.3s var(--ease);
+    }
+    .faq-icon::before,
+    .faq-icon::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 14px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--gradient);
+    }
+    .faq-icon::before { transform: translate(-50%, -50%); }
+    .faq-icon::after  { transform: translate(-50%, -50%) rotate(90deg); }
+
+    .faq-item:hover .faq-icon { border-color: rgba(255, 107, 0, 0.7); }
+    .faq-item.is-open .faq-icon {
+      transform: rotate(135deg);
+      border-color: var(--red);
+    }
+
+    /* Панель з відповіддю: висота анімується через JavaScript */
+    .js .faq-answer {
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      transition: height 0.45s var(--ease), visibility 0s linear 0.45s;
+    }
+    .js .faq-item.is-open .faq-answer {
+      visibility: visible;
+      transition: height 0.45s var(--ease), visibility 0s;
+    }
+
+    .faq-answer-inner {
+      margin: 0 1.25rem;
+      padding: 1.15rem 0 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .answer-tag {
+      display: inline-block;
+      margin-bottom: 0.9rem;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--white);
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background:
+        linear-gradient(var(--card), var(--card)) padding-box,
+        var(--gradient) border-box;
+    }
+
+    .faq-answer p {
+      margin: 0 0 0.9rem;
+      max-width: 68ch;
+      color: rgba(241, 241, 241, 0.82);
+    }
+    .faq-answer p:last-child { margin-bottom: 0; }
+    .faq-answer p.lead {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* ---------- Підвал ---------- */
+    .site-footer {
+      padding: 1.75rem 0 2.25rem;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(241, 241, 241, 0.65);
+    }
+    .site-footer p { margin: 0; }
+
+    /* ---------- Адаптивність ---------- */
+    @media (max-width: 560px) {
+      .faq-question { padding: 1rem; gap: 0.7rem; }
+      .faq-answer-inner { margin: 0 1rem; }
+      .faq-icon { width: 30px; height: 30px; }
+      .faq-num { min-width: 1.9rem; }
+      .btn-ghost { width: 100%; }
+    }
+
+    /* Повага до налаштування «зменшити рух» */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===================== ШАПКА ===================== -->
+  <header class="hero">
+    <div class="container">
+      <h1 class="gradient-text rise">Портфоліо Паші</h1>
+      <p class="subtitle rise" style="--delay: 0.12s">Учень 9 класу | 14 років</p>
+
+      <section class="about rise" style="--delay: 0.26s" aria-labelledby="about-title">
+        <h2 id="about-title" class="gradient-text">Про мене</h2>
+        <p>Вітаю! Мене звати Павло, мені 14 років, і я навчаюся у 9 класі. Я людина, яка не боїться труднощів і завжди прагне докопатися до суті речей. Мене щиро захоплює вивчення та розбір складних тем, робота з найрізноманітнішою технікою, а також пошук нестандартних та ефективних рішень для будь-яких життєвих і технічних задач.</p>
+      </section>
+    </div>
+  </header>
+
+  <!-- ===================== ОСНОВНИЙ БЛОК (FAQ) ===================== -->
+  <main class="faq">
+    <div class="container">
+
+      <div class="faq-head">
+        <div>
+          <h2 class="gradient-text">Самоаналіз у запитаннях і відповідях</h2>
+          <p>Натисніть на запитання, щоб відкрити розгорнуту відповідь.</p>
+        </div>
+        <button type="button" class="btn-ghost" id="toggleAll">Розгорнути все</button>
+      </div>
+
+      <ul class="topics" aria-label="Розділи самоаналізу">
+        <li><a href="#focus">Фокус та концентрація</a></li>
+        <li><a href="#tech">Технічні засоби</a></li>
+        <li><a href="#hard">Складні завдання</a></li>
+        <li><a href="#org">Організація</a></li>
+        <li><a href="#talk">Комунікація</a></li>
+      </ul>
+
+      <!-- ---------- Розділ 1 ---------- -->
+      <section class="topic" id="focus">
+        <h3 class="gradient-text">1. Фокус та концентрація</h3>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q1-1" aria-expanded="false" aria-controls="a1-1">
+                <span class="faq-num">1.1</span>
+                <span class="faq-text">Чи можу я добре концентруватися на одній і тій самій задачі?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a1-1" role="region" aria-labelledby="q1-1">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Так</span>
+                <p class="lead">Так, я володію високим рівнем фокусу. Коли я занурююся у процес виконання конкретного завдання, для мене перестають існувати зовнішні подразники. Я здатен тривалий час утримувати увагу на одній цілі, ретельно опрацьовуючи кожну деталь, поки не досягну бажаного результату.</p>
+                <p>Шум навколо, сторонні розмови чи повідомлення на екрані відходять на другий план, коли я по-справжньому зайнятий справою. Я вважаю, що така якість — це не просто зручна риса характеру, а справжній робочий інструмент. Коли людина не розпорошується, вона помічає дрібниці, які інші пропускають, і краще розуміє, чому щось працює саме так, а не інакше. Саме тому складні задачі, які потребують часу й уважності, я намагаюся доводити до кінця, а не залишаю на півдорозі.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q1-2" aria-expanded="false" aria-controls="a1-2">
+                <span class="faq-num">1.2</span>
+                <span class="faq-text">Чи легко я відволікаюся під час роботи?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a1-2" role="region" aria-labelledby="q1-2">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Залежить від ситуації</span>
+                <p class="lead">Моя здатність переключати увагу залежить від ситуації та доцільності. Якщо виникає термінова потреба або важлива паралельна задача, я можу швидко та гнучко відволіктися від поточного процесу. Проте, якщо такої потреби немає, я залишаюся максимально зануреним у роботу і не розпорошую свій ресурс на другорядні речі.</p>
+                <p>Тому чесна відповідь така: я не відволікаюся «просто так», але й не є людиною, яку неможливо зупинити. Мені важливо самому вирішувати, коли саме варто переключитися. Я розумію, що увага — це обмежений ресурс, схожий на заряд акумулятора, і намагаюся витрачати його на те, що дійсно має значення в цей момент, а не на випадкові дрібниці.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ---------- Розділ 2 ---------- -->
+      <section class="topic" id="tech">
+        <h3 class="gradient-text">2. Дослідження технічних засобів</h3>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q2-1" aria-expanded="false" aria-controls="a2-1">
+                <span class="faq-num">2.1</span>
+                <span class="faq-text">Чи можу я навчити інших користуватися різними електронними приладами?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a2-1" role="region" aria-labelledby="q2-1">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Так</span>
+                <p class="lead">Так, абсолютно. Завдяки тому, що я сам легко розбираюся в логіці роботи сучасних пристроїв, мені вдається пояснювати складні технічні речі іншим людям простою та зрозумілою мовою, виступаючи в ролі терплячого наставника.</p>
+                <p>Я розумію, що для когось налаштування телефона, комп'ютера чи іншого гаджета може здаватися справжнім лабіринтом. Тому я не поспішаю: розбиваю процес на невеликі зрозумілі кроки, пояснюю, навіщо потрібна кожна дія, і даю людині можливість спробувати самій. На мою думку, добре пояснення — це коли людина не просто повторила за мною натискання кнопок, а зрозуміла сам принцип і наступного разу впорається без допомоги.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q2-2" aria-expanded="false" aria-controls="a2-2">
+                <span class="faq-num">2.2</span>
+                <span class="faq-text">Чи впевнено я користуюся електронними приладами?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a2-2" role="region" aria-labelledby="q2-2">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Так</span>
+                <p class="lead">Так, я почуваюся вкрай впевнено у світі цифрових та електронних технологій. Швидко освоюю новий функціонал, інтуїтивно розумію інтерфейси та логіку функціонування найрізноманітніших гаджетів і систем.</p>
+                <p>Коли мені потрапляє до рук незнайомий пристрій, я не гублюся перед новим інтерфейсом: уважно вивчаю меню, налаштування та можливості й поступово складаю в голові цілісну картину. Така впевненість з'являється з досвіду та цікавості. Чим більше різних приладів бачиш, тим більше спільних закономірностей помічаєш між ними, і кожен наступний пристрій опановувати стає легше, ніж попередній.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q2-3" aria-expanded="false" aria-controls="a2-3">
+                <span class="faq-num">2.3</span>
+                <span class="faq-text">Чи цікавлюся я електронними приладами та їхнім влаштуванням?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a2-3" role="region" aria-labelledby="q2-3">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Так, з обережністю</span>
+                <p class="lead">Мені справді цікаво вивчати принцип роботи техніки, стежити за новинками та розуміти, як усе влаштовано зсередини. Що стосується практичного ремонту, я підходжу до цього виважено: беруся за це лише тоді, коли це абсолютно безпечно та не несе за собою серйозних фінансових чи фізичних ризиків.</p>
+                <p>Для мене цікавість і обережність не суперечать одна одній. Електроніка може бути небезпечною — від ураження струмом до втрати дорогого пристрою через одну необережну дію, — тому я вважаю розумним спершу оцінити ризики, а вже потім братися до справи. Якщо ж ситуація складна чи небезпечна, я краще залишу її фахівцям, а сам із інтересом дізнаюся, як це працює і що саме вони роблять.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ---------- Розділ 3 ---------- -->
+      <section class="topic" id="hard">
+        <h3 class="gradient-text">3. Ставлення до складних завдань та аналітики</h3>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q3-1" aria-expanded="false" aria-controls="a3-1">
+                <span class="faq-num">3.1</span>
+                <span class="faq-text">Чи люблю я складні завдання?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a3-1" role="region" aria-labelledby="q3-1">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Так</span>
+                <p class="lead">Так, прості задачі швидко викликають скуку, тоді як виклики з підвищеною складністю стимулюють мислення та викликають справжній азарт. Мені подобається шукати виходи з нестандартних ситуацій.</p>
+                <p>Коли рішення лежить на поверхні, у процесі немає нічого цікавого — його просто виконуєш за звичкою. А ось коли доводиться думати, пробувати різні підходи, помилятися й починати спочатку, тоді й з'являється відчуття, що ти справді розвиваєшся. Саме нестандартні задачі змушують дивитися на проблему під іншим кутом і знаходити рішення, яких на перший погляд не видно.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q3-2" aria-expanded="false" aria-controls="a3-2">
+                <span class="faq-num">3.2</span>
+                <span class="faq-text">Чи проявляю я терпіння, коли завдання ускладнюється?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a3-2" role="region" aria-labelledby="q3-2">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Так</span>
+                <p class="lead">Так, труднощі мене не лякають, а навпаки — мотивують. Якщо процес стає складнішим, мій інтерес до справи лише зростає, і я з ще більшим азартом намагаюся докопатися до істини та вирішити проблему.</p>
+                <p>Я не сприймаю перешкоди як привід здатися — скоріше, як сигнал, що попереду є щось варте уваги. Терпіння для мене означає готовність спокійно перевіряти одну версію за іншою, аналізувати, чому не вийшло, і пробувати знову, не втрачаючи самовладання. Я переконаний, що майже кожну проблему можна розв'язати, якщо не зупинятися на першій невдачі.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q3-3" aria-expanded="false" aria-controls="a3-3">
+                <span class="faq-num">3.3</span>
+                <span class="faq-text">Чи подобається мені працювати з цифрами, формулами та рівняннями?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a3-3" role="region" aria-labelledby="q3-3">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Частково</span>
+                <p class="lead">Частково. Залежно від контексту та конкретної задачі, я можу працювати з математичними обчисленнями та формулами, особливо коли це необхідно для розв'язання практичної технічної проблеми.</p>
+                <p>Не можу сказати, що цифри й рівняння — моє головне захоплення саме по собі. Але коли за формулою стоїть зрозуміла мета, наприклад розрахунок чи перевірка технічного рішення, вона одразу набуває сенсу, і працювати з нею стає цікаво. Для мене математика — це насамперед інструмент, який допомагає отримати результат, а не самоціль.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q3-4" aria-expanded="false" aria-controls="a3-4">
+                <span class="faq-num">3.4</span>
+                <span class="faq-text">Чи подобається мені вести облік і рутинну документацію?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a3-4" role="region" aria-labelledby="q3-4">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Ні</span>
+                <p class="lead">Ні, монотонне ведення обліку та систематична паперова чи таблична рутина — це не те, що приносить мені задоволення. Я більше схильний до динамічної та творчої технічної діяльності.</p>
+                <p>Одноманітне заповнення таблиць, журналів чи звітів швидко втомлює мене, бо в такій роботі мало простору для пошуку та експерименту. Я розумію, що облік і документація важливі й без них неможливо організувати серйозну справу, тому за потреби виконую це відповідально. Проте справжній інтерес виникає в мене там, де є задача, яка потребує думки, змін і живого результату.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ---------- Розділ 4 ---------- -->
+      <section class="topic" id="org">
+        <h3 class="gradient-text">4. Організація та самовираження</h3>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q4-1" aria-expanded="false" aria-controls="a4-1">
+                <span class="faq-num">4.1</span>
+                <span class="faq-text">Чи легко мені координувати свій та чужий час?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a4-1" role="region" aria-labelledby="q4-1">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Так</span>
+                <p class="lead">Так, тайм-менеджмент та правильний розподіл часу для виконання завдань дисциплінують мене. Я можу ефективно розпланувати графік для досягнення поставленої мети.</p>
+                <p>Мені неважко визначити, що потрібно зробити першочергово, скільки часу піде на кожен етап і де варто залишити запас на непередбачені обставини. Це стосується не лише моїх особистих справ: коли йдеться про спільну роботу, я можу допомогти розподілити обов'язки та терміни так, щоб усі встигли. Планування для мене — це спосіб не витрачати сили на хаос і рухатися до мети спокійно та послідовно.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q4-2" aria-expanded="false" aria-controls="a4-2">
+                <span class="faq-num">4.2</span>
+                <span class="faq-text">Чи можу я висловлювати свої емоції через мистецтво?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a4-2" role="region" aria-labelledby="q4-2">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Частково</span>
+                <p class="lead">Частково. Інколи я використовую творчі підходи або елементи мистецтва для самовираження, проте частіше віддаю перевагу точним і логічним шляхам комунікації.</p>
+                <p>Я не належу до людей, які постійно шукають у мистецтві спосіб розповісти про свої почуття. Мені ближче чітко сформулювати думку словами або показати її через конкретну справу. Проте творчість я не відкидаю повністю: іноді саме творчий підхід допомагає виразити те, що складно передати сухою логікою, і такі моменти я щиро ціную.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q4-3" aria-expanded="false" aria-controls="a4-3">
+                <span class="faq-num">4.3</span>
+                <span class="faq-text">Чи відчуваю я задоволення, коли щось вдається зробити?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a4-3" role="region" aria-labelledby="q4-3">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Інколи</span>
+                <p class="lead">Інколи. Для мене успішне вирішення задачі частіше сприймається як належний результат і виконаний обов'язок, ніж як привід для бурхливих емоцій, хоча вдалі складні проєкти, безперечно, приносять внутрішнє заспокоєння.</p>
+                <p>Я не з тих, хто стрибає від радості після кожного досягнення. Коли все вийшло, я скоріше спокійно відзначаю, що роботу виконано як слід, і переходжу до наступної цілі. Але після особливо складного проєкту, над яким довго думав і який доводилося неодноразово переробляти, з'являється тихе, глибоке відчуття задоволення. Воно не гучне, зате щире, і саме воно підказує мені, що зусилля були не марними.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ---------- Розділ 5 ---------- -->
+      <section class="topic" id="talk">
+        <h3 class="gradient-text">5. Комунікація та спілкування</h3>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q5-1" aria-expanded="false" aria-controls="a5-1">
+                <span class="faq-num">5.1</span>
+                <span class="faq-text">Чи подобається мені спілкуватися з людьми?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a5-1" role="region" aria-labelledby="q5-1">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Вибірково</span>
+                <p class="lead">Загалом я віддаю перевагу вузькому колу спілкування і не дуже люблю пусті розмови з більшістю людей. Проте є винятки — це однодумці та цікаві особистості, з якими розмова має цінність і зміст.</p>
+                <p>Для мене якість спілкування важливіша за кількість знайомих. Розмова, у якій нічого не відбувається, швидко втомлює, а от діалог, з якого можна дізнатися щось нове, обмінятися ідеями чи разом знайти рішення, навпаки, надихає. Тому я ціную людей, з якими можна говорити відверто й по суті, і намагаюся підтримувати саме такі стосунки.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-heading">
+              <button type="button" class="faq-question" id="q5-2" aria-expanded="false" aria-controls="a5-2">
+                <span class="faq-num">5.2</span>
+                <span class="faq-text">Чи легко мені починати розмову з незнайомими людьми?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="faq-answer" id="a5-2" role="region" aria-labelledby="q5-2">
+              <div class="faq-answer-inner">
+                <span class="answer-tag">Так</span>
+                <p class="lead">Так, попри вибірковість у спілкуванні, я без жодних бар'єрів чи проблем можу першим вступити в діалог із незнайомою людиною, якщо цього вимагає ситуація або робочий процес.</p>
+                <p>Вибірковість не означає замкненість. Якщо потрібно щось уточнити, домовитися про спільну справу чи попросити допомоги, я спокійно підходжу й починаю розмову: для мене це просто ще одна практична задача, а не привід хвилюватися. Я розумію, що вміння вчасно зробити перший крок — важлива навичка, яка стане в пригоді і в школі, і в подальшому житті.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===================== ПІДВАЛ ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Портфоліо Павла. Всі права захищено (напевно).</p>
+    </div>
+  </footer>
+
+  <!-- ===================== JAVASCRIPT: аккордеон ===================== -->
+  <script>
+    (function () {
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var items = Array.prototype.slice.call(document.querySelectorAll('.faq-item'));
+      var toggleAllBtn = document.getElementById('toggleAll');
+
+      // Відкриває або закриває одну панель з плавною зміною висоти
+      function setOpen(item, open) {
+        if (item.classList.contains('is-open') === open) return;
+
+        var button = item.querySelector('.faq-question');
+        var panel = item.querySelector('.faq-answer');
+
+        button.setAttribute('aria-expanded', String(open));
+        item.classList.toggle('is-open', open);
+
+        // Без анімації (якщо користувач просив зменшити рух)
+        if (reduceMotion) {
+          panel.style.height = open ? 'auto' : '0px';
+          return;
+        }
+
+        if (open) {
+          // від поточної висоти до повної висоти вмісту
+          panel.style.height = panel.scrollHeight + 'px';
+        } else {
+          // спочатку фіксуємо поточну висоту (auto не анімується), потім згортаємо до 0
+          panel.style.height = panel.getBoundingClientRect().height + 'px';
+          void panel.offsetHeight; // примусове перерахування стилів
+          panel.style.height = '0px';
+        }
+      }
+
+      function updateToggleAllLabel() {
+        var allOpen = items.every(function (item) {
+          return item.classList.contains('is-open');
+        });
+        toggleAllBtn.textContent = allOpen ? 'Згорнути все' : 'Розгорнути все';
+      }
+
+      items.forEach(function (item) {
+        var button = item.querySelector('.faq-question');
+        var panel = item.querySelector('.faq-answer');
+
+        button.addEventListener('click', function () {
+          setOpen(item, !item.classList.contains('is-open'));
+          updateToggleAllLabel();
+        });
+
+        // Після завершення відкриття повертаємо height: auto,
+        // щоб вміст коректно підлаштовувався під розмір вікна
+        panel.addEventListener('transitionend', function (e) {
+          if (e.target !== panel || e.propertyName !== 'height') return;
+          if (item.classList.contains('is-open')) {
+            panel.style.height = 'auto';
+          }
+        });
+      });
+
+      toggleAllBtn.addEventListener('click', function () {
+        var shouldOpen = !items.every(function (item) {
+          return item.classList.contains('is-open');
+        });
+        items.forEach(function (item) { setOpen(item, shouldOpen); });
+        updateToggleAllLabel();
+      });
+
+      // Якщо змінюється розмір вікна — відкриті панелі підлаштовуються автоматично
+      window.addEventListener('resize', function () {
+        items.forEach(function (item) {
+          if (item.classList.contains('is-open')) {
+            item.querySelector('.faq-answer').style.height = 'auto';
+          }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
