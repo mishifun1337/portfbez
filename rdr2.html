@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red Dead Redemption 2 — Дика Америка, що зникає</title>
+<style>
+  :root{
+    --dust:#e8dcc4;
+    --dust-dim:#c9b98f;
+    --ink:#1c1712;
+    --ink-soft:#2c231a;
+    --rust:#a63d2f;
+    --rust-deep:#7c2c20;
+    --gold:#b8873a;
+    --line: rgba(232,220,196,0.18);
+  }
+
+  * { box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--ink);
+    color: var(--dust);
+    font-family: 'Georgia', 'Iowan Old Style', serif;
+    line-height: 1.6;
+  }
+
+  .sky{
+    position: relative;
+    padding: 6rem 1.5rem 8rem;
+    background:
+      radial-gradient(ellipse at 50% 0%, #4a2e1e 0%, #241a12 45%, var(--ink) 80%);
+    overflow: hidden;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .sun{
+    position:absolute;
+    top: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--rust) 0%, var(--rust-deep) 60%, transparent 72%);
+    opacity: 0.55;
+    filter: blur(2px);
+  }
+
+  .ridge{
+    position:absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 140px;
+    background: var(--ink);
+    clip-path: polygon(0% 100%, 0% 60%, 8% 45%, 18% 62%, 30% 38%, 42% 58%, 55% 30%, 68% 55%, 80% 40%, 92% 60%, 100% 48%, 100% 100%);
+  }
+
+  .kicker{
+    position: relative;
+    letter-spacing: 0.12em;
+    color: var(--dust-dim);
+    font-size: 0.95rem;
+    margin: 0 0 1.2rem;
+  }
+
+  h1{
+    position: relative;
+    font-size: clamp(2.4rem, 6vw, 4.4rem);
+    margin: 0 0 1rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--dust);
+    text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+  }
+
+  h1 em{
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .lede{
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+    color: var(--dust-dim);
+  }
+
+  main{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 6rem;
+  }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    gap: 1rem;
+    margin: 0 0 2.5rem;
+    color: var(--gold);
+  }
+  .divider::before, .divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background: var(--line);
+  }
+  .divider span{
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+  }
+
+  .facts{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .facts li{
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 1.2rem;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+
+  .facts .mark{
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--rust);
+    line-height: 1;
+    padding-top: 0.15rem;
+  }
+
+  .facts h3{
+    margin: 0 0 0.3rem;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--dust);
+  }
+
+  .facts p{
+    margin: 0;
+    color: var(--dust-dim);
+    font-size: 0.98rem;
+  }
+
+  .cta-wrap{
+    margin-top: 4rem;
+    text-align: center;
+  }
+
+  .cta{
+    display: inline-block;
+    padding: 0.95rem 2.4rem;
+    background: var(--rust);
+    color: var(--dust);
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.03em;
+    border: 1px solid var(--rust);
+    border-radius: 2px;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.15s ease;
+  }
+
+  .cta:hover{
+    background: transparent;
+    color: var(--rust);
+    transform: translateY(-1px);
+  }
+
+  .cta:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  footer{
+    text-align:center;
+    padding: 2rem 1.5rem 3rem;
+    color: var(--dust-dim);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 520px){
+    .facts li{
+      grid-template-columns: 40px 1fr;
+      gap: 0.8rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="sky">
+    <div class="sun" aria-hidden="true"></div>
+    <p class="kicker">1899 · АМЕРИКАНСЬКИЙ ЗАХІД</p>
+    <h1>Red Dead <em>Redemption 2</em></h1>
+    <p class="lede">Епічна історія Артура Морґана та банди Ван дер Лінде — про честь, вірність і землю, на якій більше не має місця для таких, як вони.</p>
+    <div class="ridge" aria-hidden="true"></div>
+  </div>
+
+  <main>
+    <p style="color: var(--dust-dim); font-size: 1.05rem; max-width: 620px;">
+      Red Dead Redemption 2 — пригодницька гра від Rockstar Games, дія якої розгортається у величезному відкритому світі: від засніжених гір до випалених сонцем прерій. Гравець приєднується до банди аутлоу, що тікає від закону в епоху, коли дикий Захід стрімко зникає під натиском цивілізації.
+    </p>
+
+    <div class="divider" style="margin-top: 3.5rem;"><span>ЦІКАВІ ФАКТИ</span></div>
+
+    <ul class="facts">
+      <li>
+        <span class="mark">I</span>
+        <div>
+          <h3>RDR 2—один із найдорожчих ігрових проєктів в історії</h3>
+          <p>Розробка тривала майже вісім років і залучила понад тисячу людей, включно з акторами, аніматорами та композиторами.</p>
+        </div>
+      </li>
+      <li>
+        <span class="mark">II</span>
+        <div>
+          <h3>Жива екосистема дикої природи</h3>
+          <p>У світі гри діють сотні видів тварин із власною поведінкою — від міграції оленів до реакції хижаків на запах гравця.</p>
+        </div>
+      </li>
+      <li>
+        <span class="mark">III</span>
+        <div>
+          <h3>Система честі впливає на сюжет</h3>
+          <p>Вчинки Артура — від дрібних крадіжок до порятунку незнайомців — формують те, як до нього ставляться інші персонажі та як розвивається фінал.</p>
+        </div>
+      </li>
+      <li>
+        <span class="mark">IV</span>
+        <div>
+          <h3>Приквел до першої частини</h3>
+          <p>Події гри передують оригінальній Red Dead Redemption 2010 року й розкривають минуле знайомого гравцям Джона Марстона.</p>
+        </div>
+      </li>
+      <li>
+        <span class="mark">V</span>
+        <div>
+          <h3>Деталізація як фірмовий стиль студії</h3>
+          <p>Борода Артура росте з часом, одяг забруднюється й намокає під дощем, а коні мають індивідуальний характер і прив’язаність до вершника.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="cta-wrap">
+      <a class="cta" href="https://www.rockstargames.com/reddeadredemption2" target="_blank" rel="noopener noreferrer">Дізнатися більше</a>
+    </div>
+  </main>
+
+  <footer>
+    Red Dead Redemption 2 — гра студії Rockstar Games. Усі права на назву та матеріали належать їхнім власникам.
+  </footer>
+
+</body>
+</html>
