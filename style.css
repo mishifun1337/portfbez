@@ -1,0 +1,590 @@
+/* =====================================================
+   ЗМІННІ (кольори та шрифт)
+===================================================== */
+:root {
+  --bg: #121212;
+  --card: #222222;
+  --text: #F1F1F1;
+  --white: #FFFFFF;
+  --orange: #FF6B00;
+  --red: #E50914;
+  --gradient: linear-gradient(90deg, #FF6B00 0%, #E50914 100%);
+  --gradient-vertical: linear-gradient(180deg, #FF6B00 0%, #E50914 100%);
+  --line: rgba(255, 255, 255, 0.08);
+  --font: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Макет: ширина центрального блоку та розмір бічних зон для персонажів */
+  --content-w: 880px;                                   /* ширина центрального блоку */
+  --panel-bg: rgba(30, 30, 30, 0.9);                    /* напівпрозорий темно-сірий фон блоку */
+  --zone: calc((100vw - var(--content-w)) / 2);         /* вільне місце збоку від блоку */
+  --side-w: min(calc(var(--zone) - 2rem), 420px);       /* максимальна ширина персонажа */
+}
+
+/* =====================================================
+   БАЗОВІ СТИЛІ
+===================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Внутрішні відступи центрального блоку */
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+}
+
+/* Градієнтний текст (запасний колір — оранжевий) */
+.gradient-text {
+  color: var(--orange);
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* =====================================================
+   МАКЕТ СТОРІНКИ
+===================================================== */
+
+/* ---------- Центральний блок (напівпрозорий темно-сірий фон) ---------- */
+.page {
+  position: relative;
+  z-index: 1;                                   /* завжди над персонажами */
+  width: min(100% - 2rem, var(--content-w));
+  margin: 1.5rem auto;
+  overflow: hidden;
+  background: var(--panel-bg);                  /* rgba(30, 30, 30, 0.9) */
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Шапка (Hero) ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2.75rem, 8vw, 5rem) 0 clamp(2rem, 5vw, 3rem);
+}
+
+/* Єдина декоративна «пляма жару» у кутку */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -25%;
+  width: min(85vw, 760px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle closest-side at 50% 50%,
+    rgba(229, 9, 20, 0.34) 0%,
+    rgba(255, 107, 0, 0.16) 45%,
+    rgba(18, 18, 18, 0) 100%);
+  pointer-events: none;
+}
+
+.hero .container { position: relative; }
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 9vw, 5rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.hero .subtitle {
+  margin: 1.1rem 0 0;
+  font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+  font-weight: 500;
+  color: var(--white);
+  letter-spacing: 0.01em;
+}
+
+.about {
+  margin-top: clamp(2.25rem, 6vw, 3.5rem);
+  padding-left: clamp(1.1rem, 3vw, 1.75rem);
+  border-left: 4px solid transparent;
+  border-image: var(--gradient-vertical) 1;
+  max-width: 700px;
+}
+
+.about h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.about p {
+  margin: 0;
+  font-size: clamp(1rem, 2.3vw, 1.15rem);
+  line-height: 1.8;
+  color: var(--text);
+}
+
+/* Єдиний анімований момент: поява шапки при завантаженні */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+.hero .rise {
+  animation: rise 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--delay, 0s);
+}
+
+/* ---------- Основний блок (FAQ) ---------- */
+.faq {
+  padding: clamp(2rem, 6vw, 3.5rem) 0 clamp(3rem, 8vw, 5rem);
+}
+
+.faq-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.faq-head h2 {
+  margin: 0;
+  font-size: clamp(1.6rem, 4.5vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.faq-head p {
+  margin: 0.5rem 0 0;
+  color: rgba(241, 241, 241, 0.75);
+  max-width: 46ch;
+}
+
+.btn-ghost {
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+.btn-ghost:hover {
+  border-color: var(--orange);
+  box-shadow: 0 0 18px rgba(255, 107, 0, 0.25);
+}
+
+/* Швидкі посилання на розділи */
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+.topics a {
+  display: inline-block;
+  padding: 0.4rem 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.topics a:hover {
+  color: var(--white);
+  border-color: rgba(255, 107, 0, 0.7);
+}
+
+.topic {
+  margin-top: clamp(2.25rem, 6vw, 3.25rem);
+  scroll-margin-top: 1.5rem;
+}
+
+.topic h3 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.3rem, 3.6vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ---------- Підвал ---------- */
+.site-footer {
+  padding: 1.75rem 0 2.25rem;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(241, 241, 241, 0.65);
+}
+.site-footer p { margin: 0; }
+
+/* =====================================================
+   ПЕРСОНАЖІ
+===================================================== */
+
+/* ---------- Аніме-персонажі по боках екрана ---------- */
+.character {
+  position: fixed;                              /* не рухаються при скролі */
+  bottom: -12px;                                /* притиснуті до нижнього краю екрана */
+  z-index: 0;
+  width: var(--side-w);
+  pointer-events: none;                         /* не заважають кліками */
+  user-select: none;
+
+  /* За замовчуванням (мобільні / вузькі екрани) — сховані */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), visibility 0s linear 0.6s;
+}
+
+/* Розташування в центрі бічної зони */
+.character--left {
+  left: calc(var(--zone) / 2 - var(--side-w) / 2);
+  transform: translateX(-60px);                 /* «в'їжджає» зліва при появі */
+}
+.character--right {
+  right: calc(var(--zone) / 2 - var(--side-w) / 2);
+  transform: translateX(60px);                  /* «в'їжджає» справа при появі */
+}
+
+/* Кольорове сяйво за персонажем: зліва оранжеве, справа червоне */
+.character::before {
+  content: "";
+  position: absolute;
+  inset: -15% -25% 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.character--left::before {
+  background: radial-gradient(ellipse at 50% 85%, rgba(255, 107, 0, 0.32) 0%, rgba(255, 107, 0, 0) 65%);
+}
+.character--right::before {
+  background: radial-gradient(ellipse at 50% 85%, rgba(229, 9, 20, 0.32) 0%, rgba(229, 9, 20, 0) 65%);
+}
+
+.character img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 82vh;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 0 22px rgba(0, 0, 0, 0.55));
+  animation: float 7s ease-in-out infinite;
+}
+.character--right img { animation-delay: -3.5s; }
+
+/* Дуже легке «дихання» персонажів (нижній край завжди за межами екрана) */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* Заглушка, якщо файл зображення не знайдено */
+.character__placeholder {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  height: min(58vh, 460px);
+  padding: 1rem;
+  border: 2px dashed rgba(255, 107, 0, 0.55);
+  border-radius: 18px;
+  background: rgba(34, 34, 34, 0.6);
+  color: rgba(241, 241, 241, 0.75);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+}
+.character__placeholder svg {
+  width: 45%;
+  height: auto;
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.85;
+}
+.character__placeholder strong { color: var(--white); word-break: break-all; }
+.character.is-missing img { display: none; }
+.character.is-missing .character__placeholder { display: flex; }
+
+/* Показуємо персонажів лише на достатньо широких екранах (від 1200px).
+   Щоб змінити поріг, поміняйте число 1200px тут. Нижче — плавно зникають. */
+@media (min-width: 1200px) {
+  .character {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), visibility 0s;
+  }
+}
+
+/* =====================================================
+   АККОРДЕОН
+===================================================== */
+.faq-item {
+  position: relative;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.faq-item:hover {
+  border-color: rgba(255, 107, 0, 0.6);
+  box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.2), 0 10px 32px -10px rgba(229, 9, 20, 0.45);
+}
+
+/* Кольорова смужка зліва з'являється, коли відповідь відкрито */
+.faq-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--gradient-vertical);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.45s var(--ease);
+}
+.faq-item.is-open::before { transform: scaleY(1); }
+.faq-item.is-open { border-color: rgba(229, 9, 20, 0.5); }
+
+.faq-heading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  margin: 0;
+  padding: 1.1rem 1.25rem;
+  font: inherit;
+  font-size: clamp(0.98rem, 2.4vw, 1.08rem);
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: left;
+  color: var(--white);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.faq-question:focus-visible { outline-offset: -3px; border-radius: 14px; }
+
+.faq-num {
+  flex: none;
+  min-width: 2.2rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--orange);
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.faq-text { flex: 1; }
+
+/* Іконка «+», що перетворюється на «×» */
+.faq-icon {
+  position: relative;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition: transform 0.4s var(--ease), border-color 0.3s var(--ease);
+}
+.faq-icon::before,
+.faq-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gradient);
+}
+.faq-icon::before { transform: translate(-50%, -50%); }
+.faq-icon::after  { transform: translate(-50%, -50%) rotate(90deg); }
+
+.faq-item:hover .faq-icon { border-color: rgba(255, 107, 0, 0.7); }
+.faq-item.is-open .faq-icon {
+  transform: rotate(135deg);
+  border-color: var(--red);
+}
+
+/* Панель з відповіддю: висота анімується через JavaScript */
+.js .faq-answer {
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: height 0.45s var(--ease), visibility 0s linear 0.45s;
+}
+.js .faq-item.is-open .faq-answer {
+  visibility: visible;
+  transition: height 0.45s var(--ease), visibility 0s;
+}
+
+.faq-answer-inner {
+  margin: 0 1.25rem;
+  padding: 1.15rem 0 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.answer-tag {
+  display: inline-block;
+  margin-bottom: 0.9rem;
+  padding: 0.2rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--white);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    var(--gradient) border-box;
+}
+
+.faq-answer p {
+  margin: 0 0 0.9rem;
+  max-width: 68ch;
+  color: rgba(241, 241, 241, 0.82);
+}
+.faq-answer p:last-child { margin-bottom: 0; }
+.faq-answer p.lead {
+  color: var(--white);
+  font-weight: 500;
+}
+
+/* =====================================================
+   СФЕРИ ДІЯЛЬНОСТІ
+===================================================== */
+
+/* Список видів усередині сфери */
+.sphere-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sphere-types li {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.sphere-type__num {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--orange);
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.sphere-type__title {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--white);
+}
+.sphere-types p {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+}
+
+/* Кнопка-посилання «↑ До розділів» */
+.sphere-nav { margin-top: 1.25rem; }
+.btn-ghost--link {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Підсумковий текст після сфер (у стилі блоку «Про мене») */
+.spheres-summary {
+  margin: 1.5rem 0 0;
+  padding-left: clamp(1.1rem, 3vw, 1.75rem);
+  border-left: 4px solid transparent;
+  border-image: var(--gradient-vertical) 1;
+  max-width: 700px;
+  font-size: clamp(1rem, 2.3vw, 1.15rem);
+  line-height: 1.8;
+  color: var(--text);
+}
+
+/* =====================================================
+   АДАПТИВНІСТЬ
+===================================================== */
+@media (max-width: 560px) {
+  .page { width: calc(100% - 1.5rem); margin: 0.75rem auto; border-radius: 18px; }
+  .faq-question { padding: 1rem; gap: 0.7rem; }
+  .faq-answer-inner { margin: 0 1rem; }
+  .faq-icon { width: 30px; height: 30px; }
+  .faq-num { min-width: 1.9rem; }
+  .btn-ghost { width: 100%; }
+}
+
+/* Повага до налаштування «зменшити рух» */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

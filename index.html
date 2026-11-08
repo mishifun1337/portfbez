@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Особисте портфоліо Павла, учня 9 класу: самоаналіз у запитаннях і відповідях.">
+  <meta name="theme-color" content="#121212">
+  <title>Портфоліо Паші</title>
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Усі стилі сторінки -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ===================== АНІМЕ-ПЕРСОНАЖІ (фіксовані по боках екрана) =====================
+       ЛІВИЙ персонаж  — файл:  img/character-left.png
+       ПРАВИЙ персонаж — файл:  img/character-right.png
+       Обидва файли мають лежати в папці img поруч з цим HTML-файлом.
+       На екранах вужчих за 1200px (планшети, смартфони) персонажі плавно зникають,
+       щоб не заважати читанню тексту.
+  ======================================================================================= -->
+
+  <!-- ЛІВИЙ персонаж: замініть файл img/character-left.png на своє зображення -->
+  <aside class="character character--left" aria-hidden="true">
+    <img src="img/character-left.png" alt="" onerror="this.parentNode.classList.add('is-missing')">
+    <div class="character__placeholder">
+      <svg viewBox="0 0 120 200" aria-hidden="true"><circle cx="60" cy="52" r="26"/><path d="M14 200 C14 132 34 106 60 106 C86 106 106 132 106 200"/></svg>
+      <span>Додайте файл<br><strong>character-left.png</strong></span>
+    </div>
+  </aside>
+
+  <!-- ПРАВИЙ персонаж: замініть файл img/character-right.png на своє зображення -->
+  <aside class="character character--right" aria-hidden="true">
+    <img src="img/character-right.png" alt="" onerror="this.parentNode.classList.add('is-missing')">
+    <div class="character__placeholder">
+      <svg viewBox="0 0 120 200" aria-hidden="true"><circle cx="60" cy="52" r="26"/><path d="M14 200 C14 132 34 106 60 106 C86 106 106 132 106 200"/></svg>
+      <span>Додайте файл<br><strong>character-right.png</strong></span>
+    </div>
+  </aside>
+
+  <!-- ===================== ЦЕНТРАЛЬНИЙ БЛОК (напівпрозорий фон) ===================== -->
+  <div class="page">
+
+  <!-- ===================== ШАПКА ===================== -->
+  <header class="hero">
+    <div class="container">
+      <h1 class="gradient-text rise">Портфоліо Паші</h1>
+      <p class="subtitle rise" style="--delay: 0.12s">Учень 9 класу | 14 років</p>
+
+      <section class="about rise" style="--delay: 0.26s" aria-labelledby="about-title">
+        <h2 id="about-title" class="gradient-text">Про мене</h2>
+        <p>Вітаю! Мене звати Павло, мені 14 років, і я навчаюся у 9 класі. Я людина, яка не боїться труднощів і завжди прагне докопатися до суті речей. Мене щиро захоплює вивчення та розбір складних тем, робота з найрізноманітнішою технікою, а також пошук нестандартних та ефективних рішень для будь-яких життєвих і технічних задач.</p>
+      </section>
+    </div>
+  </header>
+
+  <!-- ===================== ОСНОВНИЙ БЛОК (FAQ) ===================== -->
+  <main class="faq">
+    <div class="container">
+
+      <div class="faq-head">
+        <div>
+          <h2 class="gradient-text">Самоаналіз у запитаннях і відповідях</h2>
+          <p>Натисніть на запитання, щоб відкрити розгорнуту відповідь.</p>
+        </div>
+        <button type="button" class="btn-ghost" id="toggleAll">Розгорнути все</button>
+      </div>
+
+      <!-- Швидкі посилання та розділи генеруються скриптом script.js
+           за даними з масиву topics. Розділи (.topic) додаються одразу після цього списку. -->
+      <ul class="topics" id="topics" aria-label="Розділи самоаналізу"></ul>
+
+      <!-- Сюди скрипт додає розділ «Сфери діяльності» (після 5 груп компетентностей) -->
+      <div id="spheres-root"></div>
+
+    </div>
+  </main>
+
+  <!-- ===================== ПІДВАЛ ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Портфоліо Павла. Права не захищено, в мене їх немає. Персонажі: Астольфо з аніме Fate/Apocrypha (Доля/Апокриф) і Фелікс Аргайл з аніме «Re:Zero. Життя з нуля в іншому світі».</p>
+    </div>
+  </footer>
+
+  </div><!-- /.page -->
+
+  <!-- ===================== JAVASCRIPT ===================== -->
+  <script src="script.js" defer></script>
+
+</body>
+</html>
